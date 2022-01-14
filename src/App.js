@@ -1,40 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios' 
+import Search from './component/Search'
+import Countriestoshow from './component/Countriestoshow'
 
-const Country = (props) => {
-  return(<div>
-    {props.countrylist.map(country => {<h3>{country}</h3>})}
-    </div>)
-}
-const Countrydisplay = (props) => {
-  const hook = () => {
-    axios.get(`https://restcountries.com/v3.1/name/${props.name}`)
-    .then(res => {
-      props.setCountry(res.data)
-      })
-  }
-  useEffect(hook,[])
-  return (
-    <div>
-      <h1>{}</h1>
-    </div>
-  )
-}
-const Search = (props) =>{
-  return(
-    <h1>find countries <input value = {props.filter} onChange={props.function}></input></h1>
-  )
-}
-const Countriestoshow = (props) => {
-  if(props.countrylist.length == 1){
-  return (
-    <Countrydisplay></Countrydisplay>
-  )}
-  else{
-    return <Country countrylist = {props.countrylist}></Country>
-  }
 
-}
 
 const App = () => {
   const [countries, setCountries] = useState([])
