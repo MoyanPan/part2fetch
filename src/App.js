@@ -6,35 +6,27 @@ import Countriestoshow from './component/Countriestoshow'
 
 
 const App = () => {
-  const [countries, setCountries] = useState([])
   const [filter,setFilter] = useState("")
-  const [country,setCountry] = useState([])
-  const [one,setOne] = useState(false)
-  console.log(country);
-  const countriestoshow = filter === ""
-  ? countries
-  : countries.filter(country => country.toLowerCase().includes(filter.toLowerCase()))
+  const [country, setCountry] = useState([])
+  const countriestoshow = filter === "" ?country :country.filter(x => x.toLowerCase().includes(filter.toLowerCase()))
+
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
-  
 
-  const hook = () => {
-    console.log('effect')
+  useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
         const data = response.data.map(res => res.name.common)
-        setCountries(data)
+        setCountry(data)
       })
-  }
-  
-  useEffect(hook, [])
+  }, [])
 
   return (
     <div>
-      <Search function = {handleFilterChange} filter = {filter}></Search>
-      <Countriestoshow setCountry = {setCountry} countrylist = {countriestoshow}></Countriestoshow>
+      <Search function = {handleFilterChange} filter = {filter}/>
+      <Countriestoshow countrylist = {countriestoshow} filter = {filter}/>
     </div>
   )
 }
