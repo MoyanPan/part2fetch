@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios' 
-import Search from './component/Search'
-import Countriestoshow from './component/Countriestoshow'
+import Countrydisplay from './component/Countrydisplay'
 
 
 
@@ -22,13 +21,12 @@ const App = () => {
         setCountry(data)
       })
   }, [])
-
   return (
-    <div>
-      <Search function = {handleFilterChange} filter = {filter}/>
-      <Countriestoshow countrylist = {countriestoshow} filter = {filter}/>
-    </div>
+    <>
+    <h1>find countries <input value = {filter} onChange={handleFilterChange}></input></h1>
+    {countriestoshow.length >= 10 && filter !== "" ?(<h3>Too many countries</h3>) : (countriestoshow.map(x => <Countrydisplay key = {x} country = {x}/>))}
+    
+    </>
   )
 }
-
 export default App
